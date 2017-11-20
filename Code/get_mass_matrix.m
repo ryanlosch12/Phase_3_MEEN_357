@@ -44,25 +44,37 @@ quarterMass = .25 * (massOfPilot + massOfChassis + massOfMotor);
 %Average of the front and rear wheels and then divide by gravity in order to get the mass.
 massOfOneWheel = ((FSAE_Race_Car.wheel_front.weight + FSAE_Race_Car.wheel_rear.weight) / 2) / 32.174; % times gravity to put in units of slugs
 
-momentOfInertia = get_Jy(FSAE_Race_Car);
-% Outpus mass matrix in units of slugs
+momentOfInertiaY = get_Jy(FSAE_Race_Car);
+momentOfInertiaX = get_Jx(FSAE_Race_Car);
+
+% Outputs mass matrix in units of slugs
 if strcmp(vibration_model, 'quarter_car_1_DOF') == 1
 	%mass of the wheel assembly is not included in matrix.
 	M = quarterMass;
-
 elseif strcmp(vibration_model, 'quarter_car_2_DOF') == 1
 	%mass of the wheel assembly needs to be added to the mass matrix
 	M(1,1) = quarterMass;
 	M(2,2) = massOfOneWheel;
 elseif strcmp(vibration_model, 'half_car_2_DOF') == 1
     M(1,1) = 2 * quarterMass;
-    M(2,2) = momentOfInertia/2;
-
+    M(2,2) = momentOfInertiaY/2;
 elseif strcmp(vibration_model, 'half_car_4_DOF') == 1
     M(1,1) = 2 * quarterMass;
-    M(2,2) = momentOfInertia/2; 
+    M(2,2) = momentOfInertiaY/2; 
     M(3,3) = FSAE_Race_Car.wheel_front.weight/32.174; %converts to slugs
     M(4,4) = FSAE_Race_Car.wheel_rear.weight/32.174; %converts to slugs
+elseif strcmp(vibration_model, 'full_car_3_DOF') == 1
+	M(1,1) = 4 * quarterMass;
+	M(2,2) = momentOfInertiaY;
+	M(3,3) = momentOfInertiaX;
+elseif strcmp(vibration_model, 'full_car_7_DOF') == 1
+	M(1,1) = 4 * quarterMass;
+	M(2,2) = momentOfInertiaY;
+	M(3,3) = momentOfInertiaX;
+	M(4,4) = FSAE_Race_Car.wheel_front.weight/32.174;
+	M(5,5) = FSAE_Race_Car.wheel_front.weight/32.174;
+	M(6,6) = FSAE_Race_Car.wheel_rear.weight/32.174;
+	M(7,7) = FSAE_Race_Car.wheel_rear.weight/32.174;
 else
 	error('The input string was not valid');
 end

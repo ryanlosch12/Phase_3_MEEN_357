@@ -2,23 +2,23 @@ function [ C ] = get_damping_matrix(vibration_model, FSAE_Race_Car)
 %
 % GET_DAMPING_MATRIX
 %
-% This function returns the damping matrix for a specified vibration of a 
-% specified race car. 
+% This function returns the damping matrix for a specified vibration of a
+% specified race car.
 %
-% Inputs: 
+% Inputs:
 %   vibration_model  is a string with addmissible values that includes
 %                    'quarter_car_1_DOF' and 'quarter_car_2_DOF'
 %   FSAE_Race_Car    is a struct containing data for the car and driver
 %
-% Output: 
+% Output:
 %   C                the damping matrix
 %
 % What the damping matrix contains
 %   For the quarter car model:
 %   The damping for the suspension is just the leverage ratios
-%   multiplied by the damping coefficient of the suspension for the front 
+%   multiplied by the damping coefficient of the suspension for the front
 %   and rear averaged together
-%   The average wheel damping is the average of the damping for the front 
+%   The average wheel damping is the average of the damping for the front
 %   and rear wheels
 %
 %   For the half car model:
@@ -30,7 +30,7 @@ function [ C ] = get_damping_matrix(vibration_model, FSAE_Race_Car)
 %
 
 % Test for valid input
-if ~ischar(vibration_model) 
+if ~ischar(vibration_model)
 	error('Argument for the vibration_model was not a string');
 end
 
@@ -80,22 +80,22 @@ elseif strcmp(vibration_model, 'half_car_2_DOF') == 1
     C(2,1) = -c1 * lf + c3 * lr;
     C(2,2) = c1 * (lf)^2 + c3 * (lr)^2;
 elseif strcmp(vibration_model, 'half_car_4_DOF') == 1
-    C(1,1) = c1  + c3; 
-    C(1,2) = -c1 * lf + c3 * lr; 
+    C(1,1) = c1  + c3;
+    C(1,2) = -c1 * lf + c3 * lr;
     C(1,3) = -c1;
     C(1,4) = -c3;
-    C(2,1) = C(1,2); 
-    C(2,2) = c1 * (lf)^2 + c3 * (lr)^2; 
+    C(2,1) = C(1,2);
+    C(2,2) = c1 * (lf)^2 + c3 * (lr)^2;
     C(2,3) = c1 * lf;
-    C(2,4) = -c3 * lr; 
+    C(2,4) = -c3 * lr;
     C(3,1) = C(1,3);
     C(3,2) = C(2,3);
-    C(3,3) = c1 + wheelFrontDamping; 
+    C(3,3) = c1 + wheelFrontDamping;
     C(3,4) = 0;
     C(4,1) = C(1,4);
     C(4,2) = C(2,4);
     C(4,3) = 0;
-    C(4,4) = c3  + wheelRearDamping; 
+    C(4,4) = c3  + wheelRearDamping;
 elseif strcmp(vibration_model, 'full_car_3_DOF')
     C(1,1) = c1 + c2 + c3 + c4;
     C(1,2) = -(c1+c2)*lf + (c3+c4)*lr;
@@ -156,10 +156,8 @@ elseif strcmp(vibration_model, 'full_car_7_DOF')
     C(7,5) = 0;
     C(7,6) = 0;
     C(7,7) = c4 + wheelRearDamping;
-
 else
 	error('Not a valid string to input for the vibration_model');
 end
 
 end
-

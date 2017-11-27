@@ -24,3 +24,17 @@ for n = 1:dof
 	v_1p(n,1) = V0(n) + h*A0(n);
 end
 
+a_1p = inv(M) * (FN(D.t_in, D) - C*v_1p - K*x_1p);
+
+%Maybe need to refine the interval? need to ask what the tolerance is.
+
+%while tol > .1
+%	x_1 = X(1,1) + (h/2)*()
+%end
+
+for i = 1:D.N
+	T(i+1) = T(i) + h;
+
+	
+end
+

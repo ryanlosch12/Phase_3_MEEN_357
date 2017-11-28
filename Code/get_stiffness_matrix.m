@@ -60,13 +60,13 @@ rf = FSAE_Race_Car.chassis.radius_f;
 rr = FSAE_Race_Car.chassis.radius_r;
 
 if strcmp(vibration_model, 'quarter_car_1_DOF') == 1
-    averageSuspensionStiffness = ((k1+k3) / 2) * 12; %units of lb/ft
+    averageSuspensionStiffness = ((k1+k3) / 2); %units of lb/ft
 
     K = averageSuspensionStiffness;
 
 elseif strcmp(vibration_model, 'quarter_car_2_DOF') == 1
-    averageSuspensionStiffness = ((k1 + k3) / 2) * 12; %units of lb/ft
-    averageWheelStiffness = ((wheelFrontStiffness + wheelRearStiffness) / 2) * 12; %units in lb / ft
+    averageSuspensionStiffness = ((k1 + k3) / 2); %units of lb/ft
+    averageWheelStiffness = ((wheelFrontStiffness + wheelRearStiffness) / 2); %units in lb / ft
 
 		K(1,1) = averageSuspensionStiffness;
 		K(1,2) = -averageSuspensionStiffness;

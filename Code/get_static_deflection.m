@@ -45,34 +45,46 @@ end
 
 
 K = get_stiffness_matrix(vibration_model, FSAE_Race_Car);
+M = get_mass_matrix(vibration_model, FSAE_Race_Car);
 
 % Displacement vector output is in units of ft or rad
-if strcmp(vibration_model, 'quarter_car_1_DOF') == 1
-    factorToGetToWeightMatrix = [32.174; 32.174;];
-    massMatrix = get_mass_matrix(vibration_model, FSAE_Race_Car);
-    weightMatrix = massMatrix * factorToGetToWeightMatrix;
+if strcmp(vibration_model, 'quarter_car_1_DOF') 
+    W = M * 32.174;
     
-    z0 = weightMatrix(1,1) / K;
-elseif strcmp(vibration_model, 'quarter_car_2_DOF') == 1
-    factorToGetToWeightMatrix = [32.174; 32.174;];
-    massMatrix = get_mass_matrix(vibration_model, FSAE_Race_Car);
-    weightMatrix = massMatrix * factorToGetToWeightMatrix;
+    z0 = W/K;
+elseif strcmp(vibration_model, 'quarter_car_2_DOF') 
+    W(1,1) = M(1,1) * 32.174;
+    W(2,1) = M(2,2) * 32.174;
     
-    z0 = K \ weightMatrix;
-elseif strcmp(vibration_model, 'half_car_2_DOF') == 1
-    weightMatrix = zeros(2,1);
-    weightMatrix(1,1) = (FSAE_Race_Car.chassis.weight + FSAE_Race_Car.power_plant.weight +...
-        FSAE_Race_Car.pilot.weight)/2;
-    weightMatrix(2,1) = 0;
-    z0 = K \ weightMatrix;
-elseif strcmp(vibration_model, 'half_car_4_DOF') == 1
-    weightMatrix = zeros(4,1);
-    weightMatrix(1,1) = (FSAE_Race_Car.chassis.weight + FSAE_Race_Car.power_plant.weight +...
-        FSAE_Race_Car.pilot.weight)/2;
-    weightMatrix(2,1) = 0;
-    weightMatrix(3,1) = FSAE_Race_Car.wheel_front.weight;
-    weightMatrix(4,1) = FSAE_Race_Car.wheel_rear.weight;
-    z0 = K \ weightMatrix;
+    z0 = K \ W;
+elseif strcmp(vibration_model, 'half_car_2_DOF') 
+    W(1,1) = M(1,1) * 32.174;
+    W(2,2) = M(2,1) * 32.174;
+
+    z0 = K \ W;
+elseif strcmp(vibration_model, 'half_car_4_DOF') 
+    W(1,1) = M(1,1) * 32.174;
+    W(2,1) = 0;
+    W(3,1) = M(3,3) * 32.174;
+    W(4,1) = M(4,4) * 32.174;
+
+    z0 = K \ W;
+elseif strcmp(vibration_model, 'full_car_3_DOF')
+    W(1,1) = M(1,1) * 32.174;
+    W(2,1) = 0;
+    W(3,1) = 0;
+
+    z0 = k \ W;
+elseif strcmp(vibration_model, 'full_car_7_DOF')
+    W(1,1) = M(1,1) * 32.174;
+    W(2,1) = 0;
+    W(3,1) = 0;
+    W(4,1) = M(4,4) * 32.174;
+    W(5,1) = M(5,5) * 32.174;
+    W(6,1) = M(6,6) * 32.174;
+    W(7,1) = M(7,7) * 32.174;
+
+    z0 = k \ W;
 else
 	error('Invalid string for vibration_model was input');
 end

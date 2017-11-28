@@ -59,7 +59,7 @@ elseif strcmp(vibration_model, 'quarter_car_2_DOF')
     z0 = K \ W;
 elseif strcmp(vibration_model, 'half_car_2_DOF') 
     W(1,1) = M(1,1) * 32.174;
-    W(2,2) = M(2,1) * 32.174;
+    W(2,1) = M(2,1) * 32.174;
 
     z0 = K \ W;
 elseif strcmp(vibration_model, 'half_car_4_DOF') 

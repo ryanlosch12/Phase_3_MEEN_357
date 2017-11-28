@@ -29,7 +29,7 @@ for ii = 1:D.N+1
    X2(ii) = XN(ii,1);
 end
 subplot(3,1,1)
-plot(TM, X1, 'r-', TM, X2, 'g-.')
+plot(TM, X1, 'r-', TN, X2, 'g-.')
 title('Displacements: Heave of Car Driving Agony Way')
 xlabel('Time [s]')
 ylabel('Displacement [ft]')

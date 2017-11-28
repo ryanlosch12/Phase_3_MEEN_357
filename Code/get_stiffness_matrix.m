@@ -54,7 +54,7 @@ wheelRearStiffness = FSAE_Race_Car.wheel_rear.k * 12;
 
 chassisLength = (FSAE_Race_Car.chassis.wheelbase)/12;
 lf = get_cg(FSAE_Race_Car);
-lr = chassisLength - front_CG;
+lr = chassisLength - lf;
 
 rf = FSAE_Race_Car.chassis.radius_f;
 rr = FSAE_Race_Car.chassis.radius_r;

@@ -51,7 +51,7 @@ c3 = (leverageRatioRear * FSAE_Race_Car.suspension_rear.c) * 12;
 c4 = c3;
 
 %Average the damping for the front and rear suspension
-averageSuspensionDamping = ((dampingFrontSuspension + dampingRearSuspension) / 2); %to get in lb / (ft / s)
+averageSuspensionDamping = ((c1 + c3) / 2); %to get in lb / (ft / s)
 
 wheelFrontDamping = FSAE_Race_Car.wheel_front.c * 12;
 wheelRearDamping = FSAE_Race_Car.wheel_rear.c * 12;
@@ -60,7 +60,7 @@ averageWheelDamping = ((wheelFrontDamping + wheelRearDamping) / 2); %unit lb / (
 
 % CG calculations Y axis
 lf = get_cg(FSAE_Race_Car);
-lr = FSAE_Race_Car.chassis.wheelbase/12 - front_CG;
+lr = FSAE_Race_Car.chassis.wheelbase/12 - lf;
 
 rf = FSAE_Race_Car.chassis.radius_f;
 rr = FSAE_Race_Car.chassis.radius_r;

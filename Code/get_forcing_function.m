@@ -59,8 +59,8 @@ averageDamping = (c1 + c3) / 2;
 lf = get_cg(ff_data.car);
 lr = (ff_data.car.chassis.wheelbase / 12) - lf;
 
-rf = FSAE_Race_Car.chassis.radius_f;
-rr = FSAE_Race_Car.chassis.radius_r;
+rf = ff_data.car.chassis.radius_f;
+rr = ff_data.car.chassis.radius_r;
 
 %Now construct forcing function when data has been given.
 if strcmp(ff_data.model,'quarter_car_1_DOF') == 1

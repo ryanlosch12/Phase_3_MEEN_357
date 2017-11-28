@@ -74,7 +74,7 @@ elseif strcmp(vibration_model, 'full_car_3_DOF')
     W(2,1) = 0;
     W(3,1) = 0;
 
-    z0 = k \ W;
+    z0 = K \ W;
 elseif strcmp(vibration_model, 'full_car_7_DOF')
     W(1,1) = M(1,1) * 32.174;
     W(2,1) = 0;
@@ -84,7 +84,7 @@ elseif strcmp(vibration_model, 'full_car_7_DOF')
     W(6,1) = M(6,6) * 32.174;
     W(7,1) = M(7,7) * 32.174;
 
-    z0 = k \ W;
+    z0 = K \ W;
 else
 	error('Invalid string for vibration_model was input');
 end

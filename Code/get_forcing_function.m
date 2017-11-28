@@ -18,7 +18,7 @@ function [ FF, ff_data ] = get_forcing_function(t, ff_data)
 [R_f_d, R_r_d, dRdt_f_d, dRdt_r_d] = ff_data.roadway_d(ff_data.car.chassis.wheelbase/12, ff_data.X_enter_d, X, V);
 
 %passenger not needed in this phase.
-%[R_f_p, R_r_p, dRdt_f_p, dRdt_r_p] = ff_data.roadway_d(ff_data.car.chassis.wheelbase/12, ff_data.X_enter_p, X, V);
+[R_f_p, R_r_p, dRdt_f_p, dRdt_r_p] = ff_data.roadway_d(ff_data.car.chassis.wheelbase/12, ff_data.X_enter_p, X, V);
 
 %Get data for the forcing function, C and K values
 carWeight = ff_data.car.chassis.weight + ff_data.car.pilot.weight + ff_data.car.power_plant.weight;
@@ -84,13 +84,13 @@ elseif strcmp(ff_data.model, 'full_car_3_DOF') == 1
 	FF(2,1) = (c1*dRdt_f_d + c2*dRdt_f_p + k1*R_f_d + k2*R_f_p)*lf - (c3*dRdt_r_p + c4*dRdt_r_d + k3*R_r_p + k4*R_r_d)*lr;
 	FF(3,1) = (c1*dRdt_f_d - c2*dRdt_f_p + k1*R_f_d - k2*R_f_p)*rf - (c3*dRdt_r_p - c4*dRdt_r_d + k3*R_r_p - k4*R_r_d)*rr;
 elseif strcmp(ff_data.model, 'full_car_7_DOF') == 1
-	F(1,1) = carWeight;
-	F(1,2) = 0;
-	F(1,3) = 0;
-	F(1,4) = w_df - (c1 + frontWheelDamping)*dRdt_f_d - (k1 + frontWheelStiffness)*R_f_d;
-	F(1,5) = w_pf - (c2 + frontWheelDamping)*dRdt_f_p - (k2 + frontWheelStiffness)*R_f_p;
-	F(1,6) = w_pr - (c3 + rearWheelDamping)*dRdt_r_p - (k3 + rearWheelStiffness)*R_r_p;
-	F(1,7) = w_dr - (c4 + rearWheelDamping)*dRdt_r_d - (k4 + rearWheelStiffness)*R_r_d;
+	FF(1,1) = carWeight;
+	FF(1,2) = 0;
+	FF(1,3) = 0;
+	FF(1,4) = w_df - (c1 + frontWheelDamping)*dRdt_f_d - (k1 + frontWheelStiffness)*R_f_d;
+	FF(1,5) = w_pf - (c2 + frontWheelDamping)*dRdt_f_p - (k2 + frontWheelStiffness)*R_f_p;
+	FF(1,6) = w_pr - (c3 + rearWheelDamping)*dRdt_r_p - (k3 + rearWheelStiffness)*R_r_p;
+	FF(1,7) = w_dr - (c4 + rearWheelDamping)*dRdt_r_d - (k4 + rearWheelStiffness)*R_r_d;
 else
 	error('The model selected is not valid');
 end

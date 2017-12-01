@@ -36,14 +36,14 @@ for m = 1:2
 end
 
 %Assign 1st predicted value into vectors?
-X(2,:) = x_1p;
-V(2,:) = v_1p;
-A(2,:) = a_1p;
+X(2,:) = transpose(x_1p);
+V(2,:) = transpose(v_1p);
+A(2,:) = transpose(a_1p);
 
-for nn = 2:D.N-1
+for nn = 2:D.N
 	T(nn+1) = T(nn) + h;
 
-	[f, D] = FN(T(nn+1), D);
+	[f, D] = FN(T(nn), D);
 
 	%predict
 	x_p = (1/3).*(4.*X(nn,:) - X(nn-1,:)) + (h/6).*(3.*V(nn,:) - V(nn-1,:)) + (h^2/36).*(31.*A(nn,:) - A(nn-1,:));

@@ -62,8 +62,8 @@ averageWheelDamping = ((wheelFrontDamping + wheelRearDamping) / 2); %unit lb / (
 lf = get_cg(FSAE_Race_Car);
 lr = FSAE_Race_Car.chassis.wheelbase/12 - lf;
 
-rf = FSAE_Race_Car.chassis.radius_f;
-rr = FSAE_Race_Car.chassis.radius_r;
+rf = FSAE_Race_Car.chassis.radius_f/12;
+rr = FSAE_Race_Car.chassis.radius_r/12;
 
 % Outputs in units of lb / (ft/s^2) for linear damers and ft * lb / (rad/s) for angular
 % dampers

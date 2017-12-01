@@ -4,7 +4,7 @@ clear all  % clear memory from the workspace
 close all  % close extra windows, e.g., graphs
 
 % load the forcing function for the Baja vehicle
-ff_baja_5;
+ff_2017_6;
 D = ff_data;       % established in ff_baja_6
 % initialize variables to pass to the integration algorithms
 FN  = @(t, D) get_forcing_function(t, D);

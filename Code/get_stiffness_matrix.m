@@ -56,8 +56,8 @@ chassisLength = (FSAE_Race_Car.chassis.wheelbase)/12;
 lf = get_cg(FSAE_Race_Car);
 lr = chassisLength - lf;
 
-rf = FSAE_Race_Car.chassis.radius_f;
-rr = FSAE_Race_Car.chassis.radius_r;
+rf = FSAE_Race_Car.chassis.radius_f/12;
+rr = FSAE_Race_Car.chassis.radius_r/12;
 
 if strcmp(vibration_model, 'quarter_car_1_DOF') == 1
     averageSuspensionStiffness = ((k1+k3) / 2); %units of lb/ft

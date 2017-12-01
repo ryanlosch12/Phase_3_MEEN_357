@@ -1,6 +1,15 @@
 function [ Jx ] = get_Jx(FSAE_Race_Car)
 %GET_JX
-%   Detailed explanation goes here
+%   This function returns the moment of inertia of the particular
+%   race car. The motor, chassis, and driver are taken into account
+%   and the parallel axis theorem is used to calculate the moment
+%   of inertia.
+%
+%   Inputs:
+%	FSAE_Race_Car - The data struct for the particular car.
+%
+%   Outputs:
+%	Jx - The moment of inertia of the particular race car.
 
 if ~isstruct(FSAE_Race_Car)
 	error('The car that was input was not a FSAE_Race_Car');

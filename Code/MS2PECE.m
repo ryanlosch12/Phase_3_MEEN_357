@@ -20,11 +20,13 @@ for ii=1:dof
    A(1,ii) = A0(ii);
 end
 
+x_1p = zeros(dof,1);
+v_1p = zeros(dof,1);
 for n = 1:dof
 	x_1p(n,1) = X0(n) + h*V0(n) + (h^2/2)*A0(n);
 	v_1p(n,1) = V0(n) + h*A0(n);
 end
-[f, D] = FN(D.t_in, D);
+[f, D] = FN(T(1), D);
 a_1p = M\(f - C*v_1p - K*x_1p);
 
 %Maybe need to refine the interval? need to ask what the tolerance is.

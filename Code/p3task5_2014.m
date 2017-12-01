@@ -73,7 +73,7 @@ M = get_mass_matrix(D.model,D.car);
 C = get_damping_matrix(D.model,D.car);
 K = get_stiffness_matrix(D.model,D.car);
 [T6,X6,V6,A6] = MS2PECE(X0,V0,A0,M,C,K,FN,D);
-
+   
 %Heave
 figure(1)
 subplot(3,1,1)
@@ -194,3 +194,48 @@ ylabel('Acceleration (Degrees/s/s)')
 title('Roll Acceleration')
 legend('Full Car 3 DOF','Full Car 7 DOF','location','eastoutside')
 hold off
+
+%Axle Plane
+%Assemble Matrix
+chassislength = (D.car.chassis.wheelbase)/12;
+lf = get_cg(D.car);
+lr = chassislength - lf;
+L = lf + lr;
+
+rf = (D.car.chassis.radius_f)/12;
+rr = (D.car.chassis.radius_r)/12;
+W = rf + rr;
+
+Mat = [lr/(2*L) lr/(2*L) lf/(2*L) lf/(2*L);
+    -1/(2*L) -1/(2*L) 1/(2*L) 1/(2*L);
+    -1/(2*W) 1/(2*W) 1/(2*W) -1/(2*W);
+    -rr/W rr/W -rf/W rf/W];
+
+X6_Axle = Mat * (X6(:,4:7))';
+X6_Axle = X6_Axle';
+
+%Axle vs Chassis
+
+figure(4)
+%Heave
+subplot(2,2,1)
+hold on
+plot(T6,X6_Axle(:,1),'r')
+plot(T6,X6(:,1),'b')
+
+%Pitch
+subplot(2,2,2)
+hold on
+plot(T6,X6_Axle(:,2)*Convert,'r')
+plot(T6,X6(:,2)*Convert,'b')
+
+%Roll
+subplot(2,2,3)
+hold on
+plot(T6,X6_Axle(:,3)*Convert,'r')
+plot(T6,X6(:,3)*Convert,'b')
+
+%Warp
+subplot(2,2,4)
+hold on
+plot(T6,X6_Axle(:,4)*Convert,'r')

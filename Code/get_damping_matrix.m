@@ -137,7 +137,7 @@ elseif strcmp(vibration_model, 'full_car_7_DOF')
     C(4,7) = 0;
     C(5,1) = -c2;
     C(5,2) = c2*lf;
-    C(5,3) = -c3*rf;
+    C(5,3) = -c2*rf;
     C(5,4) = 0;
     C(5,5) = c2 + wheelFrontDamping;
     C(5,6) = 0;

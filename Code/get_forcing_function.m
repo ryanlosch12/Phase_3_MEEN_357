@@ -11,13 +11,15 @@ function [ FF, ff_data ] = get_forcing_function(t, ff_data)
 %	FF - the forcing function for a particular model
 %	ff_data - the dynamically updated struct.
 
+%Need to error check
+
 [t, X, V] = ff_data.trajectory(ff_data.t_prev, ff_data.X_prev, (ff_data.t_out - ff_data.t_in) / ff_data.N,...
 			       ff_data.t_in, ff_data.t_out, ff_data.V_in, ff_data.V_out, ff_data.car);
 
-%driver
+%Driver
 [R_f_d, R_r_d, dRdt_f_d, dRdt_r_d] = ff_data.roadway_d(ff_data.car.chassis.wheelbase/12, ff_data.X_enter_d, X, V);
 
-%passenger not needed in this phase.
+%Passenger
 [R_f_p, R_r_p, dRdt_f_p, dRdt_r_p] = ff_data.roadway_d(ff_data.car.chassis.wheelbase/12, ff_data.X_enter_p, X, V);
 
 %Get data for the forcing function, C and K values

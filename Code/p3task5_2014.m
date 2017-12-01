@@ -86,7 +86,7 @@ plot(T5,X5(:,1),'c')
 plot(T6,X6(:,1),'m')
 xlabel('Time (s)')
 ylabel('Displacement (ft)')
-title('Heave Displacement')
+title('Heave Displacement: MS2PECE Car 2014')
 legend('1/4 Car 1 DOF','1/4 Car 2 DOF','1/2 Car 2 DOF','1/2 Car 4 DOF',...
 'Full Car 3 DOF','Full Car 7 DOF','location','eastoutside')
 hold off
@@ -101,7 +101,7 @@ plot(T5,V5(:,1),'c')
 plot(T6,V6(:,1),'m')
 xlabel('Time (s)')
 ylabel('Velocity (ft/s)')
-title('Heave Velocity')
+title('Heave Velocity: MS2PECE Car 2014')
 legend('1/4 Car 1 DOF','1/4 Car 2 DOF','1/2 Car 2 DOF','1/2 Car 4 DOF',...
 'Full Car 3 DOF','Full Car 7 DOF','location','eastoutside')
 hold off
@@ -116,7 +116,7 @@ plot(T5,A5(:,1),'c')
 plot(T6,A6(:,1),'m')
 xlabel('Time (s)')
 ylabel('Acceleration (ft/s/s)')
-title('Heave Acceleration')
+title('Heave Acceleration: MS2PECE Car 2014')
 legend('1/4 Car 1 DOF','1/4 Car 2 DOF','1/2 Car 2 DOF','1/2 Car 4 DOF',...
 'Full Car 3 DOF','Full Car 7 DOF','location','eastoutside')
 hold off
@@ -132,7 +132,7 @@ plot(T5,X5(:,2)*Convert,'c')
 plot(T6,X6(:,2)*Convert,'m')
 xlabel('Time (s)')
 ylabel('Displacement (Degrees)')
-title('Pitch Displacement')
+title('Pitch Displacement: MS2PECE Car 2014')
 legend('1/2 Car 2 DOF','1/2 Car 4 DOF','Full Car 3 DOF','Full Car 7 DOF'...
 ,'location','eastoutside')
 hold off
@@ -145,7 +145,7 @@ plot(T5,V5(:,2)*Convert,'c')
 plot(T6,V6(:,2)*Convert,'m')
 xlabel('Time (s)')
 ylabel('Velocity (Degrees/s)')
-title('Pitch Velocity')
+title('Pitch Velocity: MS2PECE Car 2014')
 legend('1/2 Car 2 DOF','1/2 Car 4 DOF','Full Car 3 DOF','Full Car 7 DOF'...
 ,'location','eastoutside')
 hold off
@@ -158,7 +158,7 @@ plot(T5,A5(:,2)*Convert,'c')
 plot(T6,A6(:,2)*Convert,'m')
 xlabel('Time (s)')
 ylabel('Acceleration (Degrees/s/s)')
-title('Pitch Acceleration')
+title('Pitch Acceleration: MS2PECE Car 2014')
 legend('1/2 Car 2 DOF','1/2 Car 4 DOF','Full Car 3 DOF','Full Car 7 DOF'...
 ,'location','eastoutside')
 hold off
@@ -171,7 +171,7 @@ plot(T5,X5(:,3)*Convert,'c')
 plot(T6,X6(:,3)*Convert,'m')
 xlabel('Time (s)')
 ylabel('Displacement (Degrees)')
-title('Roll Displacement')
+title('Roll Displacement: MS2PECE Car 2014')
 legend('Full Car 3 DOF','Full Car 7 DOF','location','eastoutside')
 hold off
 
@@ -181,7 +181,7 @@ plot(T5,V5(:,3)*Convert,'c')
 plot(T6,V6(:,3)*Convert,'m')
 xlabel('Time (s)')
 ylabel('Velocity (Degrees/s)')
-title('Roll Velocity')
+title('Roll Velocity: MS2PECE Car 2014')
 legend('Full Car 3 DOF','Full Car 7 DOF','location','eastoutside')
 hold off
 
@@ -191,7 +191,7 @@ plot(T5,A5(:,3)*Convert,'c')
 plot(T6,A6(:,3)*Convert,'m')
 xlabel('Time (s)')
 ylabel('Acceleration (Degrees/s/s)')
-title('Roll Acceleration')
+title('Roll Acceleration: MS2PECE Car 2014')
 legend('Full Car 3 DOF','Full Car 7 DOF','location','eastoutside')
 hold off
 
@@ -222,20 +222,36 @@ subplot(2,2,1)
 hold on
 plot(T6,X6_Axle(:,1),'r')
 plot(T6,X6(:,1),'b')
+title('Heave: Car 2014')
+xlabel('time (s)')
+ylabel('Heave Displacement (ft)')
+legend('Axle Plane', 'Chassis Plane', 'Location', 'best')
 
 %Pitch
 subplot(2,2,2)
 hold on
 plot(T6,X6_Axle(:,2)*Convert,'r')
 plot(T6,X6(:,2)*Convert,'b')
+title('Pitch: Car 2014')
+xlabel('time (s)')
+ylabel('Pitch Displacement (degrees)')
+legend('Axle Plane', 'Chassis Plane', 'Location', 'best')
 
 %Roll
 subplot(2,2,3)
 hold on
 plot(T6,X6_Axle(:,3)*Convert,'r')
 plot(T6,X6(:,3)*Convert,'b')
+title('Roll: Car 2014')
+xlabel('time (s)')
+ylabel('Roll Displacement (degrees)')
+legend('Axle Plane', 'Chassis Plane', 'Location', 'best')
 
 %Warp
 subplot(2,2,4)
 hold on
 plot(T6,X6_Axle(:,4)*Convert,'r')
+title('Warp: Car 2014')
+xlabel('time (s)')
+ylabel('Warp Displacement (ft)')
+legend('Axle Plane', 'Location', 'best')

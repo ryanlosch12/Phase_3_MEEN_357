@@ -1,6 +1,46 @@
 function [ T, X, V, A ] = MS2PECE(X0, V0, A0, M, C, K, FN, D)
-%MS2PECE
-%   Detailed explanation goes here
+%
+% MS2PECE
+%
+% Implements MS2PECE solver for integrating the second-order ODE
+%
+%       d^2{x}       d{x}
+%   [M] ------ + [C] ---- + [K]{x} = {FF}(t,D)
+%        dt^2         dt
+%
+% whose passed parameters are:
+%   X0  is a vector containing the initial condition for displacement
+%   V0  is a vector containing the initial condition for velocity
+%       needed if more than 1 trajectory is to be imposed, size DOFx1
+%   A0  is a vector containing the initial condition for acceleration 
+%       needed if more than 1 trajectory is to be imposed, size DOFx1
+%   M   is a mass matrix
+%   C   is a damping matrix
+%   K   is a stiffness matrix 
+%   FN  is a handle to an arbitrary forcing function with an interface of
+%          function [FF,D] = someForcingFunction(t,D)
+%       that can be called by
+%          [FF,D] = FN(t,D)
+%       whose returned vector FF has the same dimension as X and
+%       whose data structure D contains data needed to solve FN for FF
+%   D   is a data structure needed to solve FN(t,D)
+%
+% The lower limit of integration comes from D.t_in.
+% The upper limit of integration comes from D.t_out.
+% The number of integration steps come from D.N.
+%
+% Vector X0 is a column vector of size 'DOF'.
+% Matrices M, C and K are square and symmetric of size 'DOFxDOF'. 
+% 'DOF' is the dimension of the problem: the degrees of freedom.
+%
+% The returned fields contain a vector and three matrices
+%   T   is a vector of times at solution    of dimension  D.N+1
+%   X   is a vector of position vectors     of dimension (D.N+1)xDOF
+%   V   is a vector of velocity vectors     of dimension (D.N+1)xDOF
+%   A   is a vector of acceleration vectors of dimension (D.N+1)xDOF
+%
+
+% Check the inputs for admissibility.
 
 if ~isstruct(D)
    Error('D, the forcing function data structure, must be a struct.');

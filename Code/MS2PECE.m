@@ -48,35 +48,29 @@ for jj = 1:dof
 	A(2,jj) = a_1p(jj,1);
 end
 
-
+x_p = zeros(dof,1);
+v_p = zeros(dof,1);
 for nn = 2:D.N-1
 	T(nn+1) = T(nn) + h;
 
 	[f, D] = FN(T(nn+1), D);
 
 	%predict
-	for j = 1:dof
-		x_p(j,1) = (1/3)*(4*X(nn,j) - X(nn-1, j)) + (h/6)*(3*V(nn,j) - V(nn-1,j)) + (h^2/36)*(31*A(nn,j) - A(nn-1,j));
-		v_p(j,1) = (1/3)*(4*V(nn,j) - V(nn-1,j)) + (2*h/3)*(2*A(nn,j) - A(nn-1,j));
-	end
-	a_p = M\(f - C*v_p - K*x_p);
+	x_p = (1/3).*(4.*X(nn,:) - X(nn-1,:)) + (h/6).*(3.*V(nn,:) - V(nn-1,:)) + (h^2/36).*(31.*A(nn,:) - A(nn-1,:));
+	v_p = (1/3).*(4.*V(nn,:) - V(nn-1,:)) + (2*h/3).*(2.*A(nn,:) - A(nn-1,:));
+	a_p = transpose(M\(f - C*transpose(v_p) - K*transpose(x_p)));
 
 	%Correct the predictions
 	for mm = 1:2
-		for jj = 1:dof
-			x_p(jj,1) = (1/3)*(4*X(nn,jj) - X(nn-1,jj)) + (h/24)*(v_p(jj,1) + 14*V(nn,jj) + V(nn-1, jj)) + (h^2/72)*(10*a_p(jj,1) + 51*A(nn,jj) - A(nn-1,jj));
-			v_p(jj,1) = (1/3)*(4*V(nn,jj) - V(nn-1,jj)) + (2*h/3)*a_p(jj,1);
-		end
-		a_p = M\(f - C*v_p - K*x_p);
+		x_p = (1/3).*(4.*X(nn,:) - X(nn-1,:)) + (h/24).*(v_p + 14.*V(nn,:) + V(nn-1, :)) + (h^2/72).*(10.*a_p + 51.*A(nn,:) - A(nn-1,:));
+		v_p = (1/3).*(4.*V(nn,:) - V(nn-1,:)) + (2*h/3).*a_p;
+		a_p = transpose(M\(f - C*transpose(v_p) - K*transpose(x_p)));
 	end
 
 	%update the vectors to prepare for next step
-	for kk = 1:dof
-		X(nn+1,kk) = x_p(kk,1);
-		V(nn+1,kk) = v_p(kk,1);
-		A(nn+1,kk) = a_p(kk,1);
-	end
-end
+	X(nn+1,:) = x_p;
+	V(nn+1,:) = v_p;
+	A(nn+1,:) = a_p;
 	
 end
 

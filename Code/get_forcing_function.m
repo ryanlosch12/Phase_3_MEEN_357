@@ -87,10 +87,10 @@ elseif strcmp(ff_data.model, 'full_car_7_DOF') == 1
 	FF(1,1) = carWeight;
 	FF(2,1) = 0;
 	FF(3,1) = 0;
-	FF(4,1) = w_df - (c1 + frontWheelDamping)*dRdt_f_d - (k1 + frontWheelStiffness)*R_f_d;
-	FF(5,1) = w_pf - (c2 + frontWheelDamping)*dRdt_f_p - (k2 + frontWheelStiffness)*R_f_p;
-	FF(6,1) = w_pr - (c3 + rearWheelDamping)*dRdt_r_p - (k3 + rearWheelStiffness)*R_r_p;
-	FF(7,1) = w_dr - (c4 + rearWheelDamping)*dRdt_r_d - (k4 + rearWheelStiffness)*R_r_d;
+	FF(4,1) = w_df - (frontWheelDamping)*dRdt_f_d - (frontWheelStiffness)*R_f_d;
+	FF(5,1) = w_pf - (frontWheelDamping)*dRdt_f_p - (frontWheelStiffness)*R_f_p;
+	FF(6,1) = w_pr - (rearWheelDamping)*dRdt_r_p - (rearWheelStiffness)*R_r_p;
+	FF(7,1) = w_dr - (rearWheelDamping)*dRdt_r_d - (rearWheelStiffness)*R_r_d;
 else
 	error('The model selected is not valid');
 end

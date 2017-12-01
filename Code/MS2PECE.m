@@ -22,16 +22,19 @@ end
 
 [f, D] = FN(T(1), D);
 
+%Predict
 x_1p = X0 + h.*V0 + (h^2/2).*A0;
 v_1p = V0 + h.*A0;
+
+%Evaluate
 a_1p = M\(f - C*v_1p - K*x_1p);
 
-%Maybe need to refine the interval? need to ask what the tolerance is.
-%See in document that PE(CE)^m where m is supposed to be 2
-
 for m = 1:2
+	%Correct
 	x_1p = X0 + (h/2).*(v_1p + V0 - (h^2/12).*(a_1p - A0));
 	v_1p = V0 + (h/2).*(a_1p + A0);
+
+	%Evaluate
 	a_1p = M\(f - C*v_1p - K*x_1p);
 end
 

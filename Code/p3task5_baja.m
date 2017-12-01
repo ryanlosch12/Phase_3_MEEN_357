@@ -171,7 +171,7 @@ plot(T5,X5(:,3)*Convert,'c')
 plot(T6,X6(:,3)*Convert,'m')
 xlabel('Time (s)')
 ylabel('Displacement (Degrees)')
-title('Pitch Displacement')
+title('Roll Displacement')
 legend('Full Car 3 DOF','Full Car 7 DOF','location','eastoutside')
 hold off
 
@@ -180,8 +180,8 @@ hold on
 plot(T5,V5(:,3)*Convert,'c')
 plot(T6,V6(:,3)*Convert,'m')
 xlabel('Time (s)')
-ylabel('Displacement (Degrees)')
-title('Pitch Displacement')
+ylabel('Velocity (Degrees/s)')
+title('Roll Velocity')
 legend('Full Car 3 DOF','Full Car 7 DOF','location','eastoutside')
 hold off
 
@@ -190,7 +190,7 @@ hold on
 plot(T5,A5(:,3)*Convert,'c')
 plot(T6,A6(:,3)*Convert,'m')
 xlabel('Time (s)')
-ylabel('Displacement (Degrees)')
-title('Pitch Displacement')
+ylabel('Acceleration (Degrees/s/s)')
+title('Roll Acceleration')
 legend('Full Car 3 DOF','Full Car 7 DOF','location','eastoutside')
 hold off

@@ -11,7 +11,9 @@ function [ FF, ff_data ] = get_forcing_function(t, ff_data)
 %	FF - the forcing function for a particular model
 %	ff_data - the dynamically updated struct.
 
-%Need to error check
+if ~isstruct(ff_data)
+   Error('ff_data must be a struct.');
+end
 
 [t, X, V] = ff_data.trajectory(ff_data.t_prev, ff_data.X_prev, (ff_data.t_out - ff_data.t_in) / ff_data.N,...
 			       ff_data.t_in, ff_data.t_out, ff_data.V_in, ff_data.V_out, ff_data.car);

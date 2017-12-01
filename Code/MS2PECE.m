@@ -2,6 +2,35 @@ function [ T, X, V, A ] = MS2PECE(X0, V0, A0, M, C, K, FN, D)
 %MS2PECE
 %   Detailed explanation goes here
 
+if ~isstruct(D)
+   Error('D, the forcing function data structure, must be a struct.');
+end
+if D.t_out <= D.t_in
+   Error('The final time TN must be greater than the initial time T0.');
+end
+if D.N < 1
+   Error('The number of integration steps must exceed zero.');
+end
+dof = size(X0,1);
+if size(V0,1) ~= dof
+   Error('The length of vectors X0 and V0 must be the same.');
+end
+if size(A0,1) ~= dof
+   Error('The length of vectors X0, V0 and A0 must be the same.');
+end
+[rows, cols] = size(M);
+if (rows ~= dof) || (cols ~= dof)
+   Error('The mass matrix must have dimension DOFxDOF.');
+end
+[rows, cols] = size(C);
+if (rows ~= dof) || (cols ~= dof)
+   Error('The damping matrix must have dimension DOFxDOF.');
+end
+[rows, cols] = size(K);
+if (rows ~= dof) || (cols ~= dof)
+   Error('The stiffness matrix must have dimension DOFxDOF.');
+end
+
 dof = size(X0, 1);
 
 h = (D.t_out - D.t_in)/D.N;

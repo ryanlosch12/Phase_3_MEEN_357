@@ -250,7 +250,7 @@ legend('Axle Plane', 'Chassis Plane', 'Location', 'best')
 %Warp
 subplot(2,2,4)
 hold on
-plot(T6,X6_Axle(:,4)*Convert,'r')
+plot(T6,X6_Axle(:,4),'r')
 title('Warp: Car 2014')
 xlabel('time (s)')
 ylabel('Warp Displacement (ft)')
